@@ -1,0 +1,128 @@
+﻿# See
+https://docs.microsoft.com/en-us/ef/core/get-started/
+https://pastebin.com/waNNaAdk    for the first version of this program.
+https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx    for how to update the database schema
+
+# Start and stop the server
+For SQL Server use "Tools -> Command Line" to start and stop it or see info about it:
+
+    cd "C:\Program Files\Microsoft SQL Server\130\Tools\Binn"
+    "SqlLocalDB start MSSQLLocaldb
+    "SqlLocalDB info MSSQLLocaldb
+    "SqlLocalDB stop MSSQLLocaldb
+
+# Configure the project to use entity framework core
+Install these packages to the project:
+
+    System.Configuration.ConfigurationManager
+    System.Data.SqlClient
+    Microsoft.EntityFrameworkCore
+    Microsoft.EntityFrameworkCore.SqlServer
+    Microsoft.EntityFrameworkCore.Design
+
+# Install 'dotnet ef' and packages
+Open "Tools -> Command Line", go to the project sub directory and install 'dotnet ef':
+
+    cd "FirstDatabaseTestCreate"    
+    dotnet tool install --global dotnet-ef
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+
+# Create the initial database migration
+Open "Tools -> Command Line" and go to the project sub directory:
+
+    cd "FirstDatabaseTestCreate"
+
+Then create C# code for how to create or update the database:
+
+    dotnet ef migrations add InitialCreate
+
+Then update the database:
+
+    dotnet ef database update
+
+We can also drop and create the database via code:
+
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
+
+When we prototype we can use these methods instead of the dotnet commands 'dotnet ef migrate' and 'dotnet ef database'.
+
+We can remove migrations:
+
+    dotnet ef migrations remove [-v]
+
+# Trouble migrating or updating because of connection string
+Uncomment the MyContext2 class that use a hard coded connection string 'Util.connection_string'.
+Then optionally modify Util.connection_string.
+To start from scratch first delete the migrations folder and drop the database:
+
+    dotnet ef database drop
+
+Then add the migration and update the database.
+Do what we whould normaly do and use the 'context' option:
+
+    dotnet ef migrations add NewName --context FirstDatabaseTestCreate.BloggingContext2
+    dotnet ef database update --context FirstDatabaseTestCreate.BloggingContext2
+
+# Some queries used examining the database
+use CompanyDB
+select * from users
+select * from Questionnaire
+select * from Question
+select * from Survey
+select u.UserId, u.Name, u.Email, qn.QuestionnaireId, qn.Title as Questionnaire from users u inner join Questionnaires qn on qn.UserId = u.UserId
+
+select qn.QuestionnaireId, q.Title as Question, a.Title as Answer, r.Value AS Reply, r.UserId AS UserIdReply
+from users u
+inner join Questionnaires qn on qn.UserId = u.UserId
+inner join Questions q on q.QuestionnaireId = qn.QuestionnaireId
+left join Answers a on a.QuestionId = q.QuestionId
+left join Replies r on r.AnswerId = a.AnswerId
+-- left join Survey s on s.QuestionnaireId = qn.QuestionnaireId
+-- where userid, surveyid, questionnaireid, etc
+order by u.Email, qn.Title, r.UserId, q.DisplayOrder, a.DisplayOrder
+
+# Drop tables
+
+drop table CompanyDB.dbo.Replies
+drop table CompanyDB.dbo.Answers
+drop table CompanyDB.dbo.Post
+drop table CompanyDB.dbo.Blog
+drop table CompanyDB.dbo.Questions
+drop table CompanyDB.dbo.Questionnaires
+drop table CompanyDB.dbo.Users
+drop table CompanyDB.dbo.PostalCodes
+drop table CompanyDB.dbo.QuestionType
+drop table CompanyDB.dbo.Surveys
+drop table CompanyDB.dbo.ReplyType
+drop table CompanyDB.dbo.UserReplies
+drop table CompanyDB.dbo.QrySurveyOverview
+drop table CompanyDB.dbo.__EFMigrationsHistory
+
+# Notes vedrørende EF code first
+Skal skrive mere kode end i andre frameworks og systemer.
+Skal benytte flere queries fordi man er mere tabel orienteret. Det kræver man skriver en masse ekstra kode.  Simpel multi outer join er træls.
+Dokumentationen og eksemplerne er ikke ok (eller for besværlige at navigere frem til) og mange web sider definerer ikke klart hvilkenm version/framework det drejer sig om, mv.
+
+Der er en mange quirks og bugs.
+Deres eget framework (CLI dotnet ef drop database) kan ikke  droppe databasen hvis projektet ikke compiler. Det kan ikke engang skrive databasenavnet på den sidste database i en fil og droppe den.
+JSon kan give inner loops, hvis ikke DbContext klasser annoteres korrekt.
+Hvis man vil skrive sin egen klasse til brug ved queries via DbContext skal man udføre kode for at forhindre der dannes tabeller for klasserne.
+Nogle framework versioner kan håndtere mange ting med annotations, som mangler i .net core 3.1.403.
+Frameworket kan blive forviret over flere tabeller der deler en tabel, så der er conflicting cascade deletes, hvilket gør at man må kode uden om igen.
+Frameworket populater nogen gange foreign objekter, andre gange ikke, see differences between Answer.Question vs Survey.Questionnaire vs user.Questionnaires.Questionnaire.
+Alt dette gør at det bliver meget svært at finde folk til at udvikle og vedligeholde systemet.
+Hvis man holder sig til simplere teknologier, kan man lettere finde folk, det handler om at organisere sig på den rette måde og implementere de nødvendige redskaber og den bedste kultur.
+
+# Random notes
+    // When we create a questionnaire, we always create a hidden survey that is associated with the questionnaire.
+    // The survey is used for preview and testing during design as has an infinite duration. This ensures that all questionnaires are used in at least one survey.
+    // Hidden surveys are not shown on the 'list of surveys' screen, but questionnaires for hidden surveys are shown on the 'list of questionnaires' screen.
+    //
+    // GUI considerations
+    // A question MUST have an answer alternative otherwise the user CAN NOT reply to the question.
+    // A question can have a special name that we can take special action on.
+    // Suggest answeralternatives to the user if possible.
+    // Question Tab: Set answer alternatives of this question to the same as the previous question or some other question.
+
+# Created 2020-10-13

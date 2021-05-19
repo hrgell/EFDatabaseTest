@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<!--
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+-->
+<style>
+    * {
+        box-sizing: border-box;
+        /*padding: 0px;*/
+        /*margin: 0px;*/
+        vertical-align: top;
+    }   
+
+    inputxx {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    input.text {
+        width: 200px;
+    }
+
+    input.radio {
+        width: ;
+    }
+    p {
+        padding-bottom: 6px;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    .surveytitle {
+        /*padding-bottom: 10px;*/
+        font: normal 10px arial, helvetica;
+    }
+    .questionnairetitle {
+        padding-bottom: 33px;
+        font: bold 20px arial, helvetica;
+    }
+    .qid {
+        //border:1px solid green;
+    }
+    .questiontitle {
+        font: bold 16px arial, helvetica;
+        padding-bottom: 16px;
+        display: block;
+    }
+    .questiontitlecompact {
+        font: bold 16px arial, helvetica;
+        padding-bottom: 16px;
+        //padding-right: 15px;
+        display: inline-block;
+    }
+    .answertitle {
+        padding-bottom: 6px;
+        //margin-right: 16px;
+        display: block;
+    }
+    .answertitlecompact {
+        padding-bottom: 6px;
+        //margin-right: 16px;
+        display: inline-block;
+    }  
+    .answertitlecompactmiddle {
+        padding-bottom: 6px;
+        //margin-right: 16px;
+        display: inline-block;
+    }
+    .padbottom {
+        padding-bottom: 16px;
+    }
+    .padright {
+        /*padding-right: 16px;*/
+        margin-right: 16px;
+    }
+    .scale_pad_lef {
+        padding-left: 9px;
+        display: inline-block;
+    }
+    .question {
+        vertical-align: top;
+        //border: 1px solid red;
+    }
+    .answer  {
+        vertical-align: top;
+        //border: 1px solid magenta;
+    }
+</style>
+<script>
+var data =
+[{
+"user":{
+  "UserId": 1,
+  "Disabled": 0,
+  "Level": 0,
+  "WantInfo": 0,
+  "Name": "Hr Gell",
+  "Title": "",
+  "Gender": "",
+  "Email": "hrgell@hotmail.com",
+  "SecondaryEmail": "",
+  "Pwd": "",
+  "Phone": "",
+  "SecondaryPhone": "",
+  "Homepage": "",
+  "Notes": "",
+  "Adr1": "",
+  "Adr2": "",
+  "Adr3": "",
+  "PostalCodeId": 1,
+  "PostalCode": null,
+  "Adr4": ""
+},"survey":{
+  "SurveyId": 1,
+  "UserId": 1,
+  "QuestionnaireId": 1,
+  "DateBegin": "2020-10-24T21:44:49.1202023",
+  "DateEnd": "2020-10-25T01:44:49.1202023",
+  "Disabled": 0,
+  "Title": "#System",
+  "UseTitle": 0,
+  "Visible": 1
+},"questionnaire":{
+  "QuestionnaireId": 1,
+  "UserId": 1,
+  "Disabled": 0,
+  "Title": "Questionnaire 1",
+  "Weight": 5,
+  "Visible": "1"
+},"questions":[
+  {
+    "QuestionId": 1,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "QType": 0,
+    "Forced": 0,
+    "Title": "Question 1 Kort tekstKort tekstKort tekstKort tekstKort tekstKort tekstKort tekst",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "",
+    "ScaleLimit": 5,
+    "TitleMax": "",
+    "TitleMin": "",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  },
+  {
+    "QuestionId": 2,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 2,
+    "QType": 1,
+    "Forced": 0,
+    "Title": "Question 2 Lang tekst lang tekst lang tekst lang",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "",
+    "ScaleLimit": 5,
+    "TitleMax": "",
+    "TitleMin": "",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  },
+  {
+    "QuestionId": 3,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 3,
+    "QType": 2,
+    "Forced": 0,
+    "Title": "Question 3",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "",
+    "ScaleLimit": 5,
+    "TitleMax": "",
+    "TitleMin": "",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  },
+  {
+    "QuestionId": 4,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 4,
+    "QType": 3,
+    "Forced": 0,
+    "Title": "Question 4 is also a little too long for its own good",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "",
+    "ScaleLimit": 5,
+    "TitleMax": "",
+    "TitleMin": "",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  },
+  {
+    "QuestionId": 5,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 5,
+    "QType": 4,
+    "Forced": 0,
+    "Title": "Question 5",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "Other",
+    "ScaleLimit": 5,
+    "TitleMax": "Good",
+    "TitleMin": "Bad",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  },
+  {
+    "QuestionId": 6,
+    "QuestionnaireId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 6,
+    "QType": 0,
+    "Forced": 0,
+    "Title": "Question 6",
+    "Notes": "",
+    "Visible": "1",
+    "Weight": 1,
+    "DefaultValue": "",
+    "TitleOther": "",
+    "ScaleLimit": 5,
+    "TitleMax": "",
+    "TitleMin": "",
+    "InputOrder": 0,
+    "Compact": 0,
+    "QuestionTitleWidth": "",
+    "AnswerTitleWidth": "",
+    "Questionnaire": {
+      "QuestionnaireId": 1,
+      "UserId": 1,
+      "Disabled": 0,
+      "Title": "Questionnaire 1",
+      "Weight": 5,
+      "Visible": "1"
+    }
+  }
+],"answers":[
+  {
+    "AnswerId": 11,
+    "QuestionId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 1.1 Kort tekst"
+  },
+  {
+    "AnswerId": 12,
+    "QuestionId": 1,
+    "Disabled": 0,
+    "DisplayOrder": 2,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 1.2 Lang tekst lang tekst lang tekst lang."
+  },
+  {
+    "AnswerId": 1,
+    "QuestionId": 2,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 2.1 Kort tekst"
+  },
+  {
+    "AnswerId": 2,
+    "QuestionId": 2,
+    "Disabled": 0,
+    "DisplayOrder": 2,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 2.2 Lang tekst lang tekst lang tekst lang tekst Lang tekst lang tekst lang tekst lang tekst Lang tekst lang tekst lang tekst lang tekst"
+  },
+  {
+    "AnswerId": 3,
+    "QuestionId": 3,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 3.1"
+  },
+  {
+    "AnswerId": 4,
+    "QuestionId": 3,
+    "Disabled": 0,
+    "DisplayOrder": 2,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 3.2 Lang tekst lang tekst lang tekst lang."
+  },
+  {
+    "AnswerId": 5,
+    "QuestionId": 3,
+    "Disabled": 0,
+    "DisplayOrder": 3,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 3.3 Kort tekst"
+  },
+  {
+    "AnswerId": 6,
+    "QuestionId": 4,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 4.1 Middel tekst som er kort"
+  },
+  {
+    "AnswerId": 7,
+    "QuestionId": 4,
+    "Disabled": 0,
+    "DisplayOrder": 2,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 4.2"
+  },
+  {
+    "AnswerId": 8,
+    "QuestionId": 4,
+    "Disabled": 0,
+    "DisplayOrder": 3,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 4.3 Kort tekst"
+  },
+  {
+    "AnswerId": 9,
+    "QuestionId": 4,
+    "Disabled": 0,
+    "DisplayOrder": 4,
+    "Weight": 0,
+    "Visible": "1",
+    "Title": "Answer 4.4 Lang tekst lang tekst lang tekst lang."
+  },
+  {
+    "AnswerId": 10,
+    "QuestionId": 5,
+    "Disabled": 0,
+    "DisplayOrder": 1,
+    "Weight": 5,
+    "Visible": "1",
+    "Title": "Answer 5.1"
+  }
+],"replies":[
+  {
+    "ReplyId": 1,
+    "AnswerId": 4,
+    "Disabled": 0,
+    "SurveyId": 1,
+    "UserId": 1,
+    "RType": 0,
+    "Value": "Reply to question 3"
+  },
+  {
+    "ReplyId": 2,
+    "AnswerId": 7,
+    "Disabled": 0,
+    "SurveyId": 1,
+    "UserId": 1,
+    "RType": 0,
+    "Value": "Reply to question 4.2"
+  },
+  {
+    "ReplyId": 3,
+    "AnswerId": 10,
+    "Disabled": 0,
+    "SurveyId": 1,
+    "UserId": 1,
+    "RType": 0,
+    "Value": "3"
+  },
+  {
+    "ReplyId": 4,
+    "AnswerId": 2,
+    "Disabled": 0,
+    "SurveyId": 1,
+    "UserId": 1,
+    "RType": 0,
+    "Value": "Lidt tekst"
+  }
+]
+}]
+
+var user;
+var survey;
+var questionnaire;
+var questions;
+
+function setup_globals() {
+    user = data[0].user;
+    survey = data[0].survey;
+    survey.Compact = 0;
+    questionnaire = data[0].questionnaire;
+    questions = data[0].questions;
+    var answers = data[0].answers;
+    var replies = data[0].replies;
+    // Convinience map of AnswerId -> Reply
+    var replies_map = {};
+    replies.forEach(r => { replies_map[((r.RType == 0) ? '' : "_") + r.AnswerId] = r; });
+    // Let the questions contain the answers and the answers contain the replies.
+    var jdx = 0;
+    for(var idx = 0; idx < questions.length; ++idx) {
+        var q = questions[idx];
+        q.answers = [];
+        while(jdx < answers.length) {
+            var a = answers[jdx];
+            if(a.replies === undefined)
+                a.replies = [];
+            if(a.QuestionId != q.QuestionId)
+                break;
+            q.answers.push(a);
+            if(replies_map['' + a.AnswerId] !== undefined) {
+                var r = replies_map['' + a.AnswerId];
+                a.replies.push(r);
+            }
+            if(replies_map['_' + a.AnswerId] !== undefined) {
+                var r = replies_map['_' + a.AnswerId];
+                a.replies.push(r);
+            }
+            ++jdx;
+        } // foreach answer
+    } // foreach question
+}
+
+function ToggleClass(lst, src, dst)
+{
+    for(var idx = 0; idx < lst.length; ++idx) {
+        var elem = lst[idx];
+        elem.classList.remove(src);
+        elem.classList.add(dst);
+    }
+}
+
+function SetCompactLevel(level) {
+    survey.Compact = level;
+    setup_html();
+    return;
+    var qclass = (level < 2) ? "questiontitle" : "questiontitlecompact";
+    var qclass2 = (level < 2) ? "questiontitlecompact" : "questiontitle";
+    var aclass = (level < 1) ? "answertitle" : "answertitlecompact";
+    var aclass2 = (level < 1) ? "answertitlecompact" : "answertitle";
+    var mclass = (level < 1) ? "answertitle" : "answertitlecompactmiddle";
+    var mclass2 = (level < 1) ? "answertitlecompactmiddle" : "answertitle";
+    
+    var lst = document.getElementsByClassName('question');
+    ToggleClass(lst, qclass2, qclass);
+    ToggleClass(lst, aclass2, aclass);
+    ToggleClass(lst, mclass2, mclass);
+}
+
+function qinput(typ, name, id, value, extra = '') {
+    return '<input type="' + typ + '" name="' + name + '" id="' +  id + '" Value="' + value + '" ' + extra + ' />';
+}
+
+function create_answers_html(q) {
+    var txt = '';
+    var classname = (survey.Compact > 0) ? 'answertitlecompact' : 'answertitle';
+    for (var jdx = 0; jdx < q.answers.length; ++jdx) {
+        var isfirst = (jdx == 0);
+        var islast = (jdx == q.answers.length - 1);
+        var a = q.answers[jdx];
+        var numreplies = a.replies.length;
+        var qname = 'q' + q.QuestionId
+        var aname = 'r' + a.AnswerId;
+        var width = q.AnswerTitleWidth ? (' style="display:inline-block;width:' + q.AnswerTitleWidth + ';"') : '';
+        var title = '<label for="' + aname + '" class="' + classname + '"' + width + '>' + a.Title + '</label>';
+//' + width + '
+        txt += '<div class="' + classname + (islast ? '' : ' padright') + ' answer">'; // ' + stl + '
+        if(q.InputOrder == 0) {
+            txt += title + ' ';
+        }
+        var inp = '';
+        var rfirst = numreplies > 0 ? a.replies[0] : null;
+        var rother = numreplies > 1 ? a.replies[1] : null;
+        var first = numreplies > 0 ? rfirst.Value : q.DefaultValue;
+        var other = numreplies > 1 ? rother.Value : '';
+        if (a.QType == 0) {
+        } else if(q.QType == 1) {
+            inp = qinput('text', aname, aname, first);
+        } else if(q.QType == 2) {
+            inp = qinput('radio', qname, aname, 1, numreplies > 0 ? 'checked' : '');
+        } else if(q.QType == 3) {
+            inp = qinput('checkbox', aname, aname, 1, numreplies > 0 ? 'checked' : '');
+        } else if (q.QType == 4) {
+            txt += '<label>' + q.TitleMax + '</label> ';
+            for (var idx = 1; idx <= q.ScaleLimit; ++idx) {
+                inp += qinput('radio', qname, aname, idx, idx == first ? 'checked' : '');
+            }
+            if (q.ScaleLimit > 1) {
+                inp += ' <label>' + q.TitleMin + '</label> ';
+            }
+            if (q.TitleOther.length > 0) {
+                inp += '<div class="scale_pad_lef">';
+                inp += qinput('radio', qname, aname, 0, (first == 0 && first != "") ? 'checked' : '');
+                inp += ' <label>' + q.TitleOther + '</label></div>';
+            }
+        }
+        if(inp)
+            txt += inp;
+        if(q.InputOrder != 0) {
+            txt += ' ' + title;
+        }
+        if(other != '') {
+            // TODO
+            if(a.QType == 1) {
+                inp = '<input type="text name="ro' + a.AnswerId + '" Value="' + other + '" />';
+            } else if(a.QType == 2) {
+                inp = '<radio type="text name="ro' + a.AnswerId + '" Value="' + other + '" />';
+            } else if(a.QType == 3) {
+                inp = '<checkbox type="text name="ro' + a.AnswerId + '" Value="' + other + '" />';
+            }
+            txt += inp;
+        }
+        txt += '</div>';
+
+        var classname = (survey.Compact > 0) ? 'answertitlecompactmiddle' : 'answertitle';
+    }
+    return txt;
+}
+
+function create_question_html(q) {
+    var txt = '';
+    var hasanswers = (q.answers !== undefined && q.answers.length > 0 );
+    var oneliner = (survey.Compact > 1 && hasanswers)
+    var display = oneliner ? 'inline-block' : 'block';
+    var width = q.QuestionTitleWidth ? (' style="display:' + display + ';width:' + q.QuestionTitleWidth + ';"') : '';
+    var padbottom = hasanswers ? ' padbottom' : '';
+    var padright  = oneliner ? ' padright' : '';
+    txt += '<div class="qid' + padbottom + '" style="display:' + display + '">';
+    classname = (survey.Compact > 1) ? 'questiontitlecompact' : 'questiontitle';
+    txt += '<div class="' + classname + padright + ' question" ' + width + ' >' + q.Title + '</div>';
+    if (hasanswers) {
+        txt += create_answers_html(q);
+    }
+    txt += '</div>'; // qid
+    return txt;
+}
+
+function setup_html() {
+    var txt = '<p>' + survey.Title + '</p>';
+    txt += '<div class="questionnairetitle">' + questionnaire.Title + '</div>';
+    //txt += '<br />'
+    for(var idx = 0; idx < questions.length; ++idx) {
+        var q = questions[idx];
+        txt += create_question_html(q);
+    }
+    console.log(txt);
+    //document.body.innerHTML = txt;
+    document.getElementById('qform').innerHTML = txt;
+}
+
+function onload() {
+    // Both answers and questions are sorted by question.DisplayOrder
+    setup_globals();
+    setup_html();
+}
+</script>
+</head>
+<body onload="onload()">
+<button onclick="SetCompactLevel(0)">Scale 0</button>
+<button onclick="SetCompactLevel(1)">Scale 1</button>
+<button onclick="SetCompactLevel(2)">Scale 2</button>
+<div id="qform" name="qform"></div>
+</body>
+</html>
